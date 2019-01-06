@@ -1,8 +1,30 @@
-﻿@model Football.Models.Staff
+﻿@using Football.Models;
+@model Football.ViewModels.ViewModel
 
 @{
     ViewBag.Title = "showStaff";
 }
 
-<h2>showStaff</h2>
+<h2>Staff</h2>
 
+
+<table style="width:100%">
+    <tr>
+
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Job</th>
+        <th>Age</th>
+    </tr>
+    @foreach (Staff staff in Model.staffs)
+    {
+        <tr>
+        <td>@staff.firstName</td>
+        <td>@staff.lastName</td>
+        <td>@staff.job</td>
+        <td>@staff.age</td>
+        </tr>
+
+    }
+
+</table>

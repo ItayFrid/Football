@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Football.DAL;
+using Football.ViewModels;
+using Football.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,6 +15,15 @@ namespace Football.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        public ActionResult showStaff()
+        {
+            DataLayer dal = new DataLayer();
+            List<Staff> objStaff = dal.staffs.ToList<Staff>();
+            ViewModel vm = new ViewModel();
+            vm.staffs = objStaff;
+            return View(vm);
         }
     }
 }
