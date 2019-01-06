@@ -25,5 +25,13 @@ namespace Football.Controllers
             vm.staffs = objStaff;
             return View(vm);
         }
+        public ActionResult showPlayers()
+        {
+            DataLayer dal = new DataLayer();
+            List<Player> objPlayers = dal.players.ToList<Player>();
+            ViewModel vm = new ViewModel();
+            vm.players = objPlayers;
+            return View(vm);
+        }
     }
 }
