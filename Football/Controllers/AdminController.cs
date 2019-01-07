@@ -1,4 +1,5 @@
-﻿using Football.DAL;
+﻿using Football.Classes;
+using Football.DAL;
 using Football.Models;
 using Football.ViewModels;
 using System;
@@ -178,6 +179,73 @@ namespace Football.Controllers
             ViewModel vm = new ViewModel();
             vm.staffs = dal.staffs.ToList<Staff>();
             return View("SearchStaff", vm);
+        }
+        public ActionResult AdminLogin()
+        {
+            Admin admin = new Admin();
+            ViewBag.AdminLoginMessage = "";
+            return View(admin);
+        }
+        public ActionResult Login(Admin admin)
+        {
+            DataLayer dal = new DataLayer();
+            Encryption enc = new Encryption();
+            List<Admin> adminToCheck = (from x in dal.admins
+                                        where x.userName == admin.userName
+                                        select x).ToList<Admin>();
+            if (adminToCheck != null)
+            {
+                if(enc.ValidatePassword(admin.password,adminToCheck[0].password))
+                {
+                    ViewBag.AdminLoginMessage = "Login Successfuly";
+                    //TODO: Authentication
+                    admin = new Admin();
+                }
+                else
+                {
+                    ViewBag.AdminLoginMessage = "Incorrect Username/password";
+                }
+            }
+            return View("AdminLogin",admin);
+        }
+
+        public ActionResult AdminRegister()
+        {
+            Admin admin = new Admin();
+            ViewBag.AdminLoginError = "";
+            return View(admin);
+        }
+        public ActionResult AddAdmin(Admin admin)
+        {
+            DataLayer dal = new DataLayer();
+            Encryption enc = new Encryption();
+
+            if (ModelState.IsValid)
+            {
+                string hashedPassword = enc.CreateHash(admin.password);
+                if (!adminExists(admin.userName)) { 
+                    admin.password = hashedPassword;
+                    dal.admins.Add(admin);
+                    dal.SaveChanges();
+                    ViewBag.message = "Admin was added succesfully.";
+                    admin = new Admin();
+                }
+                else
+                    ViewBag.message = "Username Exists in database.";
+            }
+            else
+                ViewBag.message = "Error in registration.";
+            return View("AdminRegister", admin);
+        }
+
+        private bool adminExists(string userName)
+        {
+            DataLayer dal = new DataLayer();
+            List<Admin> admins = dal.admins.ToList<Admin>();
+            foreach (Admin admin in dal.admins)
+                if (admin.userName.Equals(userName))
+                    return true;
+            return false;
         }
     }
 }

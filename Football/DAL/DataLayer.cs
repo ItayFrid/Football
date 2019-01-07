@@ -14,9 +14,11 @@ namespace Football.DAL
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Player>().ToTable("Players");
             modelBuilder.Entity<Staff>().ToTable("Staff");
+            modelBuilder.Entity<Admin>().ToTable("Admins");
         }
 
         public DbSet<Player> players { get; set; }
         public DbSet<Staff> staffs { get; set; }
+        public DbSet<Admin> admins { get; set; }
     }
 }

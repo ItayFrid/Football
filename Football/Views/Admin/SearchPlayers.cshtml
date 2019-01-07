@@ -4,8 +4,8 @@
     ViewBag.Title = "SearchPlayers";
 }
 
-<h2>SearchPlayers</h2>
-
+<h2>Manage Players</h2>
+<hr />
 <form action="SearchPlayers" class="form-inline" method="post">
 
     <div class="row">
@@ -28,7 +28,7 @@
         <th>Last Name</th>
         <th>position</th>
         <th>rating</th>
-        <th>Edit/Delete</th>
+        <th>Delete</th>
     </tr>
     @foreach (Player player in Model.players)
     {

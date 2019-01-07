@@ -6,13 +6,7 @@
 
 <h2>Admin Interface</h2>
 <hr />
-<div class="container">
-    <div class="row">
-        <div class="col-sm-8">
-            a
-        </div>
-        <div class="col-sm-4">
-            b
-        </div>
-    </div>
-</div>
+@Html.ActionLink("Manage Staff", "ShowSearchStaff", "Admin", new { @class = "btn btn-primary" })
+@Html.ActionLink("Manage Players", "ShowSearchPlayers", "Admin", new { @class = "btn btn-primary" })
+@Html.ActionLink("Add Admin", "AdminRegister", "Admin", new { @class = "btn btn-primary" })
+@Html.ActionLink("Admin Login", "AdminLogin", "Admin", new { @class = "btn btn-primary" })
