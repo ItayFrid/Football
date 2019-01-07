@@ -16,7 +16,7 @@ namespace Football.Models
         [Key]
         public string job { get; set; }
         [Required]
-        public int age { get; set; }
+        public string age { get; set; }
 
     }
 }

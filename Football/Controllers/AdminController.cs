@@ -18,7 +18,7 @@ namespace Football.Controllers
 
         public ActionResult AddPlayer()
         {
-            ViewBag.Error = "";
+            ViewBag.PlayerError = "";
             Player player = new Player();
             return View(player);
         }
@@ -38,7 +38,7 @@ namespace Football.Controllers
             {
                 if (NumberExists(obj.number))
                 {
-                    ViewBag.Error = "Number exists in Database";
+                    ViewBag.PlayerError = "Number exists in Database .";
                     return View("AddPlayer", obj);
                 }
                 dal.players.Add(obj);
@@ -54,6 +54,47 @@ namespace Football.Controllers
             foreach (Player player in dal.players)
             {
                 if (number.Equals(player.number))
+                    return true;
+            }
+            return false;
+        }
+        public ActionResult AddStaff()
+        {
+            ViewBag.StaffError = "";
+            Staff staff = new Staff();
+            return View(staff);
+        }
+        [HttpPost]
+        public ActionResult SubmitStaff()
+        {
+            Staff obj = new Staff();
+            obj.job = Request.Form["job"].ToString();
+            obj.firstName = Request.Form["firstName"].ToString();
+            obj.lastName = Request.Form["lastName"].ToString();
+            obj.age = Request.Form["age"].ToString();
+            DataLayer dal = new DataLayer();
+
+            if (ModelState.IsValid)
+            {
+                if (JobExists(obj.job))
+                {
+                    ViewBag.StaffError = "Job exists in database .";
+                    return View("AddStaff", obj);
+                }
+                dal.staffs.Add(obj);
+                dal.SaveChanges();
+                return View("AdminInterface");
+            }
+            else
+                return View("AddStaff", obj);
+        }
+
+        private bool JobExists(string job)
+        {
+            DataLayer dal = new DataLayer();
+            foreach (Staff staff in dal.staffs)
+            {
+                if (job.Equals(staff.job))
                     return true;
             }
             return false;
