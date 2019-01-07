@@ -1,5 +1,6 @@
 ﻿using Football.DAL;
 using Football.Models;
+using Football.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -102,6 +103,81 @@ namespace Football.Controllers
         public ActionResult AdminInterface()
         {
             return View();
+        }
+
+        public ActionResult ShowSearchPlayers()
+        {
+            DataLayer dal = new DataLayer();
+            ViewModel vm = new ViewModel();
+            vm.players = dal.players.ToList<Player>();
+            return View("SearchPlayers", vm);
+        }
+        [HttpPost]
+        public ActionResult SearchPlayers()
+        {
+            DataLayer dal = new DataLayer();
+            ViewModel vm = new ViewModel();
+            string searchValue = Request.Form["srcFirstName"].ToString();
+            List<Player> players =
+                (from x in dal.players
+                 where x.firstName.Contains(searchValue)
+                 select x).ToList<Player>();
+            vm.players = players;
+            return View(vm);
+        }
+        [HttpPost]
+        public ActionResult DeletePlayer()
+        {
+            DataLayer dal = new DataLayer();
+            string number = Request.Form["delNumber"].ToString();
+            foreach(Player player in dal.players)
+            {
+                if (player.number.Equals(number))
+                {
+                    dal.players.Remove(player);
+                }
+            }
+            dal.SaveChanges();
+            ViewModel vm = new ViewModel();
+            vm.players = dal.players.ToList<Player>();
+            return View("SearchPlayers", vm);
+        }
+        public ActionResult ShowSearchStaff()
+        {
+            DataLayer dal = new DataLayer();
+            ViewModel vm = new ViewModel();
+            vm.staffs = dal.staffs.ToList<Staff>();
+            return View("SearchStaff", vm);
+        }
+        [HttpPost]
+        public ActionResult SearchStaff()
+        {
+            DataLayer dal = new DataLayer();
+            ViewModel vm = new ViewModel();
+            string searchValue = Request.Form["srcFirstName"].ToString();
+            List<Staff> staffs =
+                (from x in dal.staffs
+                 where x.firstName.Contains(searchValue)
+                 select x).ToList<Staff>();
+            vm.staffs = staffs;
+            return View(vm);
+        }
+        [HttpPost]
+        public ActionResult DeleteStaff()
+        {
+            DataLayer dal = new DataLayer();
+            string job = Request.Form["delJob"].ToString();
+            foreach (Staff staff in dal.staffs)
+            {
+                if (staff.job.Equals(job))
+                {
+                    dal.staffs.Remove(staff);
+                }
+            }
+            dal.SaveChanges();
+            ViewModel vm = new ViewModel();
+            vm.staffs = dal.staffs.ToList<Staff>();
+            return View("SearchStaff", vm);
         }
     }
 }

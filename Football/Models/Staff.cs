@@ -21,6 +21,5 @@ namespace Football.Models
         [Required]
         [RegularExpression("^([2-7][0-9])$", ErrorMessage = "Must be a number between 20-79")]
         public string age { get; set; }
-
     }
 }
