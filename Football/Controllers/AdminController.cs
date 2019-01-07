@@ -99,5 +99,9 @@ namespace Football.Controllers
             }
             return false;
         }
+        public ActionResult AdminInterface()
+        {
+            return View();
+        }
     }
 }
