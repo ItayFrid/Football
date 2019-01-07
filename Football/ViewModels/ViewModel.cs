@@ -9,6 +9,8 @@ namespace Football.ViewModels
     public class ViewModel
     {
         public List<Player> players { get; set; }
+        public Player player { get; set; }
         public List<Staff> staffs { get; set; }
+        public Staff staff { get; set; }
     }
 }

@@ -6,11 +6,8 @@
 }
 
 <h2>Staff</h2>
-
-
-<table style="width:100%">
+<table class="table">
     <tr>
-
         <th>First name</th>
         <th>Last name</th>
         <th>Job</th>
@@ -19,12 +16,10 @@
     @foreach (Staff staff in Model.staffs)
     {
         <tr>
-        <td>@staff.firstName</td>
-        <td>@staff.lastName</td>
-        <td>@staff.job</td>
-        <td>@staff.age</td>
+            <td>@staff.firstName</td>
+            <td>@staff.lastName</td>
+            <td>@staff.job</td>
+            <td>@staff.age</td>
         </tr>
-
     }
-
 </table>

@@ -13,10 +13,12 @@ namespace Football.Models
         [Required]
         public string lastName { get; set; }
         [Required]
-        public int rating { get; set; }
-        [Required]
+        [RegularExpression("^(100|[1-9][0-9]?)$", ErrorMessage = "Must be a number between 1-100")]
+        public string rating { get; set; }
         [Key]
-        public int number { get; set; }
+        [Required]
+        [RegularExpression("^([1-9][0-9]?)$", ErrorMessage = "Must be a number between 1-99")]
+        public string number { get; set; }
         [Required]
         public string position { get; set; }
 

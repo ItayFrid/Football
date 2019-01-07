@@ -4,8 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Idan Aharon , Itay Fridman</title>
-        @Styles.Render("~/Content/css")
-        @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
     <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
@@ -29,9 +29,11 @@
     </nav>
 
     <div class="container body-content">
+        <br/>
         @RenderBody()
-        <hr />
+        
         <footer class="fixed-bottom text-center">
+            <hr />
             <p>&copy; @DateTime.Now.Year - Idan Aharon , Itay Fridman</p>
         </footer>
     </div>
