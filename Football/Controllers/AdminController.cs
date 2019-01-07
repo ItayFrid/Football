@@ -193,7 +193,7 @@ namespace Football.Controllers
             List<Admin> adminToCheck = (from x in dal.admins
                                         where x.userName == admin.userName
                                         select x).ToList<Admin>();
-            if (adminToCheck != null)
+            if (adminToCheck.Count!=0)
             {
                 if(enc.ValidatePassword(admin.password,adminToCheck[0].password))
                 {
@@ -206,6 +206,8 @@ namespace Football.Controllers
                     ViewBag.AdminLoginMessage = "Incorrect Username/password";
                 }
             }
+            else
+                ViewBag.AdminLoginMessage = "Incorrect Username/password";
             return View("AdminLogin",admin);
         }
 
