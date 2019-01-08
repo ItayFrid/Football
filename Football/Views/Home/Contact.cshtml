@@ -2,7 +2,7 @@
 
 
 <h2>Contact</h2>
-<h3>@ViewBag.Message</h3>
+
 
 <hr />
 @using (Html.BeginForm("SubmitContact", "Home", FormMethod.Post))
@@ -26,29 +26,16 @@
     <div class="form-group row">
         <label for="inputMessage" class="col-sm-2 col-form-label">Message</label>
         <div class="col-sm-10">
-            @Html.TextBoxFor(m => m.message, new { @class = "form-control", id = "inputMessage" })
+            @Html.TextAreaFor(m => m.message, new { @class = "form-control", id = "inputMessage" })
             <small class="text-danger">@Html.ValidationMessageFor(x => x.message)</small>
         </div>
     </div>
 
 
     <input class="btn btn-outline-primary" id="submit" type="submit" value="Submit Contact" />
+
+    <br />
+    <br />
+    @ViewBag.Message
 }
 
-
-
-
-
-
-
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
-
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
