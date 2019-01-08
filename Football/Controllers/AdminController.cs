@@ -186,9 +186,16 @@ namespace Football.Controllers
 
         public ActionResult AdminRegister()
         {
+            DataLayer dal = new DataLayer();
+            ViewModel vm = new ViewModel();
             User user = new User();
+            List<User> objAdmins = (from x in dal.users
+                                    where x.role.Contains("Admin")
+                                    select x).ToList<User>();
+            vm.user = user;
+            vm.users = objAdmins;
             ViewBag.AdminLoginError = "";
-            return View(user);
+            return View(vm);
         }
         public ActionResult AddAdmin(User user)
         {
@@ -221,6 +228,14 @@ namespace Football.Controllers
                 if (user.userName.Equals(userName))
                     return true;
             return false;
+        }
+        public ActionResult GetAdminsByJson()
+        {
+            DataLayer dal = new DataLayer();
+            List<User> objAdmins = (from x in dal.users
+                                   where x.role.Contains("Admin")
+                                   select x).ToList<User>();
+            return Json(objAdmins, JsonRequestBehavior.AllowGet);
         }
     }
 }

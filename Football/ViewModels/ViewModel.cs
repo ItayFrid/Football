@@ -12,5 +12,7 @@ namespace Football.ViewModels
         public Player player { get; set; }
         public List<Staff> staffs { get; set; }
         public Staff staff { get; set; }
+        public List<User> users { get; set; }
+        public User user { get; set; }
     }
 }

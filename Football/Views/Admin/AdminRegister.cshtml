@@ -1,5 +1,5 @@
-﻿@model Football.Models.User
-
+﻿@model Football.ViewModels.ViewModel
+@using Football.Models
 @{
     ViewBag.Title = "AdminRegister";
 }
@@ -11,37 +11,42 @@
 @using (Html.BeginForm("addAdmin", "Admin", FormMethod.Post, new { @class = "form-inline" }))
 {
     <div class="form-group row">
-        @*<label for="inputUserName" class="col-sm-2 col-form-label">UserName</label>*@
         <div class="col-sm-10">
-            @Html.TextBoxFor(m => m.userName, new { @class = "form-control", id = "inputUserName", placeholder = "Username" })
-            <small class="text-danger">@Html.ValidationMessageFor(x => x.userName)</small>
+            @Html.TextBoxFor(m => m.user.userName, new { @class = "form-control", id = "inputUserName", placeholder = "Username" })
+
         </div>
     </div>
 
     <div class="form-group row">
-        @*<label for="inputPassword" class="col-sm-2 col-form-label">password</label>*@
         <div class="col-sm-10">
-            @Html.PasswordFor(m => m.password, new { @class = "form-control", id = "inputPassword", placeholder = "Password" })
-            <small class="text-danger">@Html.ValidationMessageFor(x => x.password)</small>
+            @Html.PasswordFor(m => m.user.password, new { @class = "form-control", id = "inputPassword", placeholder = "Password" })
+
         </div>
     </div>
 
     <div class="form-group row">
-        @*<label for="inputFirstName" class="col-sm-2 col-form-label">First Name</label>*@
         <div class="col-sm-10">
-            @Html.TextBoxFor(m => m.firstName, new { @class = "form-control", id = "inputFirstName", placeholder = "First Name" })
-            <small class="text-danger">@Html.ValidationMessageFor(x => x.firstName)</small>
+            @Html.TextBoxFor(m => m.user.firstName, new { @class = "form-control", id = "inputFirstName", placeholder = "First Name" })
+
         </div>
     </div>
 
     <div class="form-group row">
-        @*<label for="inputLastName" class="col-sm-2 col-form-label">Last Name</label>*@
         <div class="col-sm-10">
-            @Html.TextBoxFor(m => m.lastName, new { @class = "form-control", id = "inputLastName", placeholder = "Last Name" })
-            <small class="text-danger">@Html.ValidationMessageFor(x => x.lastName)</small>
+            @Html.TextBoxFor(m => m.user.lastName, new { @class = "form-control", id = "inputLastName", placeholder = "Last Name" })
+
         </div>
     </div>
-    <input id="role" name="role" type="hidden" value="Admin,User" />
+    @Html.HiddenFor(m => m.user.role, new { @value = "Admin,User" })
+    @*<input id="role" name="user.role" type="hidden" value="Admin,User" />*@
     <input class="btn btn-outline-primary" id="submit" type="submit" value="Add Admin" />
     <h4 class="text-danger">@ViewBag.message</h4>
+
+    <div class="form-group row">
+        <div class="col"><small class="text-danger">@Html.ValidationMessageFor(x => x.user.userName)</small></div>
+        <div class="col"><small class="text-danger">@Html.ValidationMessageFor(x => x.user.password)</small></div>
+        <div class="col"><small class="text-danger">@Html.ValidationMessageFor(x => x.user.firstName)</small></div>
+        <div class="col"><small class="text-danger">@Html.ValidationMessageFor(x => x.user.lastName)</small></div>
+    </div>
 }
+@Html.Partial("AdminDisplay", Model)
