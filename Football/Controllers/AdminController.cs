@@ -186,39 +186,39 @@ namespace Football.Controllers
 
         public ActionResult AdminRegister()
         {
-            Admin admin = new Admin();
+            User user = new User();
             ViewBag.AdminLoginError = "";
-            return View(admin);
+            return View(user);
         }
-        public ActionResult AddAdmin(Admin admin)
+        public ActionResult AddAdmin(User user)
         {
             DataLayer dal = new DataLayer();
             Encryption enc = new Encryption();
 
             if (ModelState.IsValid)
             {
-                string hashedPassword = enc.CreateHash(admin.password);
-                if (!adminExists(admin.userName)) { 
-                    admin.password = hashedPassword;
-                    dal.admins.Add(admin);
+                string hashedPassword = enc.CreateHash(user.password);
+                if (!adminExists(user.userName)) { 
+                    user.password = hashedPassword;
+                    dal.users.Add(user);
                     dal.SaveChanges();
                     ViewBag.message = "Admin was added succesfully.";
-                    admin = new Admin();
+                    user = new User();
                 }
                 else
                     ViewBag.message = "Username Exists in database.";
             }
             else
                 ViewBag.message = "Error in registration.";
-            return View("AdminRegister", admin);
+            return View("AdminRegister", user);
         }
 
         private bool adminExists(string userName)
         {
             DataLayer dal = new DataLayer();
-            List<Admin> admins = dal.admins.ToList<Admin>();
-            foreach (Admin admin in dal.admins)
-                if (admin.userName.Equals(userName))
+            List<User> users = dal.users.ToList<User>();
+            foreach (User user in dal.users)
+                if (user.userName.Equals(userName))
                     return true;
             return false;
         }

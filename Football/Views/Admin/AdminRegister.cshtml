@@ -8,36 +8,36 @@
 <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
 <h2>addUser</h2>
 <hr />
-@using (Html.BeginForm("addAdmin", "Admin", FormMethod.Post))
+@using (Html.BeginForm("addAdmin", "Admin", FormMethod.Post, new { @class = "form-inline" }))
 {
     <div class="form-group row">
-        <label for="inputUserName" class="col-sm-2 col-form-label">UserName</label>
+        @*<label for="inputUserName" class="col-sm-2 col-form-label">UserName</label>*@
         <div class="col-sm-10">
-            @Html.TextBoxFor(m => m.userName, new { @class = "form-control", id = "inputUserName" })
+            @Html.TextBoxFor(m => m.userName, new { @class = "form-control", id = "inputUserName", placeholder = "Username" })
             <small class="text-danger">@Html.ValidationMessageFor(x => x.userName)</small>
         </div>
     </div>
 
     <div class="form-group row">
-        <label for="inputPassword" class="col-sm-2 col-form-label">password</label>
+        @*<label for="inputPassword" class="col-sm-2 col-form-label">password</label>*@
         <div class="col-sm-10">
-            @Html.PasswordFor(m => m.password, new { @class = "form-control", id = "inputPassword" })
+            @Html.PasswordFor(m => m.password, new { @class = "form-control", id = "inputPassword", placeholder = "Password" })
             <small class="text-danger">@Html.ValidationMessageFor(x => x.password)</small>
         </div>
     </div>
 
     <div class="form-group row">
-        <label for="inputFirstName" class="col-sm-2 col-form-label">First Name</label>
+        @*<label for="inputFirstName" class="col-sm-2 col-form-label">First Name</label>*@
         <div class="col-sm-10">
-            @Html.TextBoxFor(m => m.firstName, new { @class = "form-control", id = "inputFirstName" })
+            @Html.TextBoxFor(m => m.firstName, new { @class = "form-control", id = "inputFirstName", placeholder = "First Name" })
             <small class="text-danger">@Html.ValidationMessageFor(x => x.firstName)</small>
         </div>
     </div>
 
     <div class="form-group row">
-        <label for="inputLastName" class="col-sm-2 col-form-label">Last Name</label>
+        @*<label for="inputLastName" class="col-sm-2 col-form-label">Last Name</label>*@
         <div class="col-sm-10">
-            @Html.TextBoxFor(m => m.lastName, new { @class = "form-control", id = "inputLastName" })
+            @Html.TextBoxFor(m => m.lastName, new { @class = "form-control", id = "inputLastName", placeholder = "Last Name" })
             <small class="text-danger">@Html.ValidationMessageFor(x => x.lastName)</small>
         </div>
     </div>
