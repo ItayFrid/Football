@@ -14,5 +14,7 @@ namespace Football.ViewModels
         public Staff staff { get; set; }
         public List<User> users { get; set; }
         public User user { get; set; }
+
+        public List<Contact> contacts { get; set; }
     }
 }

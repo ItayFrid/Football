@@ -274,6 +274,7 @@
     <Content Include="Views\Login\UserRegister.cshtml" />
     <Content Include="Views\Login\LogOut.cshtml" />
     <Content Include="Views\Admin\AdminDisplay.cshtml" />
+    <Content Include="Views\Admin\ShowContacts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

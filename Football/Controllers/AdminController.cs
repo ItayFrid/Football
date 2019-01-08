@@ -244,5 +244,15 @@ namespace Football.Controllers
                                    select x).ToList<User>();
             return Json(objAdmins, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult ShowContacts()
+        {
+            DataLayer dal = new DataLayer();
+            List<Contact> objContacts = dal.contacts.ToList<Contact>();
+            ViewModel vm = new ViewModel();
+            vm.contacts = objContacts;
+            return View(vm);
+
+        }
     }
 }
