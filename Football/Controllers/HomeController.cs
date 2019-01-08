@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Football.DAL;
+using Football.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -22,8 +24,27 @@ namespace Football.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            //ViewBag.Message = "Your contact page.";
 
+            return View(new Contact());
+        }
+
+        public ActionResult SubmitContact(Contact cont)
+        {
+            DataLayer dal = new DataLayer();
+
+            if (ModelState.IsValid)
+            {
+                dal.contacts.Add(cont);
+                dal.SaveChanges();
+                ViewBag.message = "Contact information was submitted succesfully";
+                cont = new Contact();
+
+            }
+            else
+            {
+                ViewBag.message = "Contact information was not submitted";
+            }
             return View();
         }
     }

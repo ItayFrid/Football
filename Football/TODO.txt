@@ -1,0 +1,4 @@
+﻿#2 - Add admin jquery
+#3 - User register
+#4 - Additional table
+#5 - Design & Connect

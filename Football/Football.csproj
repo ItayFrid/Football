@@ -165,6 +165,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Admin.cs" />
+    <Compile Include="Models\Contact.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\Staff.cs" />
     <Compile Include="Models\User.cs" />
@@ -233,6 +234,7 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="TODO.txt" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
