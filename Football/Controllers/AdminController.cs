@@ -199,7 +199,6 @@ namespace Football.Controllers
         }
         public ActionResult AddAdmin(User user)
         {
-            //user.role = Request.Form["user.role"].ToString();
             DataLayer dal = new DataLayer();
             Encryption enc = new Encryption();
 
@@ -240,8 +239,8 @@ namespace Football.Controllers
         {
             DataLayer dal = new DataLayer();
             List<User> objAdmins = (from x in dal.users
-                                   where x.role.Contains("Admin")
-                                   select x).ToList<User>();
+                                    where x.role.Contains("Admin")
+                                    select x).ToList<User>();
             return Json(objAdmins, JsonRequestBehavior.AllowGet);
         }
 
