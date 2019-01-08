@@ -29,7 +29,7 @@ namespace Football.Controllers
         [HttpPost]
         public ActionResult SubmitPlayer()
         {
-
+            //Getting Player information from form
             Player obj = new Player();
             obj.number      = Request.Form["number"].ToString();
             obj.firstName   = Request.Form["firstName"].ToString();
@@ -40,18 +40,20 @@ namespace Football.Controllers
 
             if (ModelState.IsValid)
             {
-                if (NumberExists(obj.number))
+                if (NumberExists(obj.number)) //Checks if player number (key) exists in database
                 {
                     ViewBag.PlayerError = "Number exists in Database .";
                     return View("AddPlayer", obj);
                 }
+                //Adding player to database
                 dal.players.Add(obj);
                 dal.SaveChanges();
                 return View("AdminInterface");
             }
-            else
+            else//form is invalid
                 return View("AddPlayer",obj);
         }
+        //this function checks if number exists in  database
         private bool NumberExists(string number)
         {
             DataLayer dal = new DataLayer();
@@ -71,6 +73,7 @@ namespace Football.Controllers
         [HttpPost]
         public ActionResult SubmitStaff()
         {
+            //Getting staff information from form
             Staff obj = new Staff();
             obj.job = Request.Form["job"].ToString();
             obj.firstName = Request.Form["firstName"].ToString();
@@ -80,11 +83,12 @@ namespace Football.Controllers
 
             if (ModelState.IsValid)
             {
-                if (JobExists(obj.job))
+                if (JobExists(obj.job))//checks if job(key) exists in database
                 {
                     ViewBag.StaffError = "Job exists in database .";
                     return View("AddStaff", obj);
                 }
+                //adding staff to database
                 dal.staffs.Add(obj);
                 dal.SaveChanges();
                 return View("AdminInterface");
@@ -92,7 +96,7 @@ namespace Football.Controllers
             else
                 return View("AddStaff", obj);
         }
-
+        //this function checks if job exists in database
         private bool JobExists(string job)
         {
             DataLayer dal = new DataLayer();
@@ -108,7 +112,7 @@ namespace Football.Controllers
         {
             return View();
         }
-
+        //this action shows the initial search player page
         public ActionResult ShowSearchPlayers()
         {
             DataLayer dal = new DataLayer();
@@ -116,12 +120,15 @@ namespace Football.Controllers
             vm.players = dal.players.ToList<Player>();
             return View("SearchPlayers", vm);
         }
+        //this function finds the matching search values in database and shows them
         [HttpPost]
         public ActionResult SearchPlayers()
         {
             DataLayer dal = new DataLayer();
             ViewModel vm = new ViewModel();
+            //getting search value from form
             string searchValue = Request.Form["srcFirstName"].ToString();
+            //finding matching players by firstname
             List<Player> players =
                 (from x in dal.players
                  where x.firstName.Contains(searchValue)
@@ -129,23 +136,29 @@ namespace Football.Controllers
             vm.players = players;
             return View(vm);
         }
+        //this function deletes player from database
         [HttpPost]
         public ActionResult DeletePlayer()
         {
             DataLayer dal = new DataLayer();
+            //getting the number of player to delete
             string number = Request.Form["delNumber"].ToString();
             foreach(Player player in dal.players)
             {
                 if (player.number.Equals(number))
                 {
+                    //removing player from list
                     dal.players.Remove(player);
                 }
             }
+            //updating the database
             dal.SaveChanges();
             ViewModel vm = new ViewModel();
             vm.players = dal.players.ToList<Player>();
+            //directing back to search players without the deleted player
             return View("SearchPlayers", vm);
         }
+        //this action shows the initial search staff page
         public ActionResult ShowSearchStaff()
         {
             DataLayer dal = new DataLayer();
@@ -153,12 +166,15 @@ namespace Football.Controllers
             vm.staffs = dal.staffs.ToList<Staff>();
             return View("SearchStaff", vm);
         }
+        //this function finds the matching search values in database and shows them
         [HttpPost]
         public ActionResult SearchStaff()
         {
             DataLayer dal = new DataLayer();
             ViewModel vm = new ViewModel();
+            //getting the search value from form
             string searchValue = Request.Form["srcFirstName"].ToString();
+            //finding matching staff from database
             List<Staff> staffs =
                 (from x in dal.staffs
                  where x.firstName.Contains(searchValue)
@@ -166,18 +182,23 @@ namespace Football.Controllers
             vm.staffs = staffs;
             return View(vm);
         }
+        //this function deletes staff from database
         [HttpPost]
         public ActionResult DeleteStaff()
         {
             DataLayer dal = new DataLayer();
+            //getting the staff's job from form
             string job = Request.Form["delJob"].ToString();
             foreach (Staff staff in dal.staffs)
             {
+                //finding the staff to delete
                 if (staff.job.Equals(job))
                 {
+                    //removing staff from list
                     dal.staffs.Remove(staff);
                 }
             }
+            //updating database
             dal.SaveChanges();
             ViewModel vm = new ViewModel();
             vm.staffs = dal.staffs.ToList<Staff>();

@@ -14,39 +14,36 @@
             <div class="form-group row">
                 <div class="col-sm-10">
                     @Html.TextBoxFor(m => m.user.userName, new { @class = "form-control", id = "inputUserName", placeholder = "Username" })
-
+                    <small class="text-danger">@Html.ValidationMessageFor(x => x.user.userName)</small>
                 </div>
             </div>
 
             <div class="form-group row">
                 <div class="col-sm-10">
                     @Html.PasswordFor(m => m.user.password, new { @class = "form-control", id = "inputPassword", placeholder = "Password" })
-
+                    <small class="text-danger">@Html.ValidationMessageFor(x => x.user.password)</small>
                 </div>
             </div>
 
             <div class="form-group row">
                 <div class="col-sm-10">
                     @Html.TextBoxFor(m => m.user.firstName, new { @class = "form-control", id = "inputFirstName", placeholder = "First Name" })
-
+                    <small class="text-danger">@Html.ValidationMessageFor(x => x.user.firstName)</small>
                 </div>
             </div>
 
             <div class="form-group row">
                 <div class="col-sm-10">
                     @Html.TextBoxFor(m => m.user.lastName, new { @class = "form-control", id = "inputLastName", placeholder = "Last Name" })
-
+                    <small class="text-danger">@Html.ValidationMessageFor(x => x.user.lastName)</small>
                 </div>
             </div>
             <input id="role" name="user.role" type="hidden" value="Admin,User" />
             <input class="btn btn-outline-primary" id="Submit" type="button" value="Add Admin" onclick="SendData()" />
             <h4 class="text-danger">@ViewBag.message</h4>
 
-            <div class="form-group row">
-                <div class="col"><small class="text-danger">@Html.ValidationMessageFor(x => x.user.userName)</small></div>
-                <div class="col"><small class="text-danger">@Html.ValidationMessageFor(x => x.user.password)</small></div>
-                <div class="col"><small class="text-danger">@Html.ValidationMessageFor(x => x.user.firstName)</small></div>
-                <div class="col"><small class="text-danger">@Html.ValidationMessageFor(x => x.user.lastName)</small></div>
+            <div class="text-danger row">
+                <h3>@ViewBag.message</h3>
             </div>
         </form>
     </div>
@@ -86,9 +83,6 @@
         //Reference To Form
         var frmData = $("#frmAdd").serialize();
         $.post("AddAdmin", frmData, BindData)
-        $("inputUserName").val("");
-        $("inputPassword").val("");
-        $("inputFirstName").val("");
-        $("inputLastName").val("");
+        $("#frmAdd").trigger("reset");
     }
 </script>
