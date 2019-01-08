@@ -62,6 +62,7 @@
 
 <script language="javascript">
     $("#status").text("Loading Admins...")
+    //Getting Admins in json format
     $.get("GetAdminsByJson", null, BindData);
     function BindData(admins) {
         $("#adminTable").find("tr:gt(0)").remove();
@@ -79,9 +80,11 @@
 
     function SendData() {
         $("#status").text("Saving Admin...")
-        //Reference To Form
+        //Reference To Form and serialize
         var frmData = $("#frmAdd").serialize();
+        //Adding new admin to database
         $.post("AddAdmin", frmData, BindData)
+        //clear form
         $("#frmAdd").trigger("reset");
     }
 </script>

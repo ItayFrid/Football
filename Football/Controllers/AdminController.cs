@@ -204,12 +204,13 @@ namespace Football.Controllers
             vm.staffs = dal.staffs.ToList<Staff>();
             return View("SearchStaff", vm);
         }
-
+        //this functions shows the admin registration page with list of admins only
         public ActionResult AdminRegister()
         {
             DataLayer dal = new DataLayer();
             ViewModel vm = new ViewModel();
             User user = new User();
+            //getting only admins from user database
             List<User> objAdmins = (from x in dal.users
                                     where x.role.Contains("Admin")
                                     select x).ToList<User>();
@@ -218,16 +219,21 @@ namespace Football.Controllers
             ViewBag.AdminLoginError = "";
             return View(vm);
         }
+        //adding new admin to database
         public ActionResult AddAdmin(User user)
         {
             DataLayer dal = new DataLayer();
             Encryption enc = new Encryption();
-
+            //checking if form is valid
             if (ModelState.IsValid)
             {
+                //generating hashed password
                 string hashedPassword = enc.CreateHash(user.password);
+                //checks if admin exists in database
                 if (!adminExists(user.userName)) { 
+                    //updating password to hashed password
                     user.password = hashedPassword;
+                    //adding user to database
                     dal.users.Add(user);
                     dal.SaveChanges();
                     ViewBag.message = "Admin was added succesfully.";
@@ -239,17 +245,16 @@ namespace Football.Controllers
             else
                 ViewBag.message = "Error in registration.";
             ViewModel vm = new ViewModel();
+            //getting updated list of admins
             List<User> objAdmins = (from x in dal.users
                                     where x.role.Contains("Admin")
                                     select x).ToList<User>();
             vm.users = objAdmins;
             vm.user = user;
-            objAdmins = (from x in dal.users
-                         where x.role.Contains("Admin")
-                         select x).ToList<User>();
+            //returning admin list in json format
             return Json(objAdmins, JsonRequestBehavior.AllowGet);
         }
-
+        //checks if admin exists in database by username
         private bool adminExists(string userName)
         {
             DataLayer dal = new DataLayer();
@@ -259,6 +264,7 @@ namespace Football.Controllers
                     return true;
             return false;
         }
+        //this function makes a list of admins and return in a json format
         public ActionResult GetAdminsByJson()
         {
             DataLayer dal = new DataLayer();
@@ -267,7 +273,7 @@ namespace Football.Controllers
                                     select x).ToList<User>();
             return Json(objAdmins, JsonRequestBehavior.AllowGet);
         }
-
+        //this function shows the contacts from database
         public ActionResult ShowContacts()
         {
             DataLayer dal = new DataLayer();
@@ -275,7 +281,6 @@ namespace Football.Controllers
             ViewModel vm = new ViewModel();
             vm.contacts = objContacts;
             return View(vm);
-
         }
     }
 }
