@@ -199,6 +199,7 @@ namespace Football.Controllers
         }
         public ActionResult AddAdmin(User user)
         {
+            //user.role = Request.Form["user.role"].ToString();
             DataLayer dal = new DataLayer();
             Encryption enc = new Encryption();
 
@@ -217,7 +218,13 @@ namespace Football.Controllers
             }
             else
                 ViewBag.message = "Error in registration.";
-            return View("AdminRegister", user);
+            ViewModel vm = new ViewModel();
+            List<User> objAdmins = (from x in dal.users
+                                    where x.role.Contains("Admin")
+                                    select x).ToList<User>();
+            vm.users = objAdmins;
+            vm.user = user;
+            return View("AdminRegister", vm);
         }
 
         private bool adminExists(string userName)

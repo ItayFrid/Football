@@ -37,8 +37,7 @@
 
         </div>
     </div>
-    @Html.HiddenFor(m => m.user.role, new { @value = "Admin,User" })
-    @*<input id="role" name="user.role" type="hidden" value="Admin,User" />*@
+    <input id="role" name="user.role" type="hidden" value="Admin,User" />
     <input class="btn btn-outline-primary" id="submit" type="submit" value="Add Admin" />
     <h4 class="text-danger">@ViewBag.message</h4>
 
