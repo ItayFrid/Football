@@ -9,7 +9,7 @@
 <h2>User Register</h2>
 <hr />
 
-@using (Html.BeginForm("addUser", "Open", FormMethod.Post))
+@using (Html.BeginForm("addUser", "Login", FormMethod.Post))
 {
     <div class="form-group row">
         <label for="inputUserName" class="col-sm-2 col-form-label">UserName</label>
@@ -42,7 +42,7 @@
             <small class="text-danger">@Html.ValidationMessageFor(x => x.lastName)</small>
         </div>
     </div>
-
+    <input id="role" name="role" type="hidden" value="User" />
     <input class="btn btn-outline-primary" id="submit" type="submit" value="Add User" />
     <h4 class="text-danger">@ViewBag.message</h4>
 }

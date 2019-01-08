@@ -17,6 +17,8 @@ namespace Football.Models
         public string firstName { get; set; }
         [Required]
         public string lastName { get; set; }
+        [Required]
+        public string role { get; set; }
 
     }
 }

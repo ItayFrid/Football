@@ -1,14 +1,14 @@
-﻿@model Football.Models.Admin
+﻿@model Football.Models.User
 
 @{
-    ViewBag.Title = "AdminLogin";
+    ViewBag.Title = "UserLogin";
 }
 <script src="~/Scripts/jquery-3.3.1.js"></script>
 <script src="~/Scripts/jquery.validate.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
-<h2>AdminLogin</h2>
-
-@using (Html.BeginForm("Login", "Admin", FormMethod.Post))
+<h2>Login</h2>
+<hr />
+@using (Html.BeginForm("Login", "Login", FormMethod.Post))
 {
     <div class="form-group row">
         <label for="inputUserName" class="col-sm-2 col-form-label">UserName</label>
@@ -26,6 +26,6 @@
         </div>
     </div>
 
-    <input class="btn btn-outline-primary" id="submit" type="submit" value="Login" />
-    <h4 class="text-danger">@ViewBag.AdminLoginMessage</h4>
+    <input class="btn btn-outline-primary" id="Submit" type="submit" value="Login" />
+    <h4 class="text-danger">@ViewBag.UserLoginMessage</h4>
 }

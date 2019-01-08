@@ -7,9 +7,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace Football.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         // GET: Admin
@@ -101,6 +103,7 @@ namespace Football.Controllers
             }
             return false;
         }
+        
         public ActionResult AdminInterface()
         {
             return View();
@@ -179,36 +182,6 @@ namespace Football.Controllers
             ViewModel vm = new ViewModel();
             vm.staffs = dal.staffs.ToList<Staff>();
             return View("SearchStaff", vm);
-        }
-        public ActionResult AdminLogin()
-        {
-            Admin admin = new Admin();
-            ViewBag.AdminLoginMessage = "";
-            return View(admin);
-        }
-        public ActionResult Login(Admin admin)
-        {
-            DataLayer dal = new DataLayer();
-            Encryption enc = new Encryption();
-            List<Admin> adminToCheck = (from x in dal.admins
-                                        where x.userName == admin.userName
-                                        select x).ToList<Admin>();
-            if (adminToCheck.Count!=0)
-            {
-                if(enc.ValidatePassword(admin.password,adminToCheck[0].password))
-                {
-                    ViewBag.AdminLoginMessage = "Login Successfuly";
-                    //TODO: Authentication
-                    admin = new Admin();
-                }
-                else
-                {
-                    ViewBag.AdminLoginMessage = "Incorrect Username/password";
-                }
-            }
-            else
-                ViewBag.AdminLoginMessage = "Incorrect Username/password";
-            return View("AdminLogin",admin);
         }
 
         public ActionResult AdminRegister()
