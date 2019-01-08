@@ -276,6 +276,7 @@
     <Content Include="Views\Admin\AdminDisplay.cshtml" />
     <Content Include="Views\Admin\ShowContacts.cshtml" />
     <Content Include="Views\Open\StaffDisplay.cshtml" />
+    <Content Include="Views\Open\PlayersDisplay.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

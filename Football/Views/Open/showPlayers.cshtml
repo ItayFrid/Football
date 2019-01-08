@@ -6,22 +6,4 @@
 
 <h2>Players</h2>
 <hr />
-<table class="table">
-    <tr>
-        <th>#</th>
-        <th>first Name</th>
-        <th>Last Name</th>
-        <th>position</th>
-        <th>rating</th>
-    </tr>
-    @foreach (Player player in Model.players)
-    {
-    <tr>
-        <td>@player.number</td>
-        <td>@player.firstName</td>
-        <td>@player.lastName</td>
-        <td>@player.position</td>
-        <td>@player.rating</td>
-    </tr>
-    }
-</table>
+@Html.Partial("PlayersDisplay", Model)
