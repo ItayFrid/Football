@@ -270,6 +270,7 @@
     <Content Include="Views\Admin\SearchStaff.cshtml" />
     <Content Include="Views\Login\UserLogin.cshtml" />
     <Content Include="Views\Login\UserRegister.cshtml" />
+    <Content Include="Views\Login\LogOut.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

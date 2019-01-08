@@ -60,13 +60,12 @@ namespace Football.Controllers
             return View("UserLogin", user);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
         public ActionResult LogOut()
         {
-            //AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             FormsAuthentication.SignOut();
-            return RedirectToRoute("Default");
+            return RedirectToRoute("HomePage");
         }
         public ActionResult UserRegister()
         {
