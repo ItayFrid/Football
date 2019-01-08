@@ -10,6 +10,8 @@ using System.Web.Security;
 
 namespace Football.Controllers
 {
+
+    /*This controller handles user's sign in/sign out & user(not admin) register*/
     public class LoginController : Controller
     {
         // GET: Login
@@ -17,12 +19,16 @@ namespace Football.Controllers
         {
             return View();
         }
+        /*This function redirects to user login page*/
         public ActionResult UserLogin()
         {
             User user = new User();
             ViewBag.UserLoginMessage = "";
             return View(user);
         }
+
+        /*This function handles user login*/
+        /*Given information from user login form*/
         public ActionResult Login(User user)
         {
             
@@ -30,18 +36,18 @@ namespace Football.Controllers
             Encryption enc = new Encryption();
             List<User> userToCheck = (from x in dal.users
                                         where x.userName == user.userName
-                                        select x).ToList<User>();
-            if (userToCheck.Count != 0)
+                                        select x).ToList<User>();       //Attempting to get user information from database
+            if (userToCheck.Count != 0)     //In case username was found
             {
-                if (enc.ValidatePassword(user.password, userToCheck[0].password))
+                if (enc.ValidatePassword(user.password, userToCheck[0].password))   //Correct password
                 {
                     var authTicket = new FormsAuthenticationTicket(
                         1,                                  // version
                         user.userName,                      // user name
                         DateTime.Now,                       // created
                         DateTime.Now.AddMinutes(20),        // expires
-                        true,
-                        userToCheck[0].role                       // can be used to store roles
+                        true,       //keep me connected
+                        userToCheck[0].role                       // store roles
                         );
 
                     string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
@@ -60,19 +66,23 @@ namespace Football.Controllers
             return View("UserLogin", user);
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
+        /*This function handles signing out*/
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();
             return RedirectToRoute("HomePage");
         }
+
+        /*This function redirects to user register page*/
         public ActionResult UserRegister()
         {
             User user = new User();
             ViewBag.UserLoginError = "";
             return View(user);
         }
+
+        /*This function adds new user to database*/
+        /*Given user information from user register form*/
         public ActionResult AddUser(User user)
         {
             DataLayer dal = new DataLayer();
@@ -80,8 +90,8 @@ namespace Football.Controllers
 
             if (ModelState.IsValid)
             {
-                string hashedPassword = enc.CreateHash(user.password);
-                if (!userExists(user.userName))
+                string hashedPassword = enc.CreateHash(user.password);      //Encrypting user's password
+                if (!userExists(user.userName))     //Adding user to database
                 {
                     user.password = hashedPassword;
                     dal.users.Add(user);
@@ -97,6 +107,7 @@ namespace Football.Controllers
             return View("UserRegister", user);
         }
 
+        /*This function compares given username with usernames in database*/
         private bool userExists(string userName)
         {
             DataLayer dal = new DataLayer();

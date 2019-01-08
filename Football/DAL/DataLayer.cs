@@ -7,6 +7,8 @@ using System.Web;
 
 namespace Football.DAL
 {
+
+    /*This class handles interactions with database*/
     public class DataLayer : DbContext
     {
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -18,6 +20,7 @@ namespace Football.DAL
             modelBuilder.Entity<User>().ToTable("Users");
         }
 
+        /*Database sets*/
         public DbSet<Player> players { get; set; }
         public DbSet<Staff> staffs { get; set; }
         public DbSet<Contact> contacts { get; set; }

@@ -11,6 +11,7 @@ using Football.Classes;
 namespace Football.Controllers
 {
     
+    /*This controller handles actions done for unregistered and registered users*/
     public class OpenController : Controller
     {
         [Authorize]
@@ -20,6 +21,7 @@ namespace Football.Controllers
             return View();
         }
         [Authorize(Roles = "User")]
+        /*Showing staff information for registered user*/
         public ActionResult showStaff()
         {
             DataLayer dal = new DataLayer();
@@ -29,6 +31,7 @@ namespace Football.Controllers
             return View(vm);
         }
         [Authorize(Roles = "User")]
+        /*Showing players information for registered user*/
         public ActionResult showPlayers()
         {
             DataLayer dal = new DataLayer();

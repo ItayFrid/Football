@@ -8,6 +8,8 @@ using System.Web.Mvc;
 
 namespace Football.Controllers
 {
+
+    /*This controller handles actions for unregistered user*/
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -29,6 +31,7 @@ namespace Football.Controllers
             return View(new Contact());
         }
 
+        /*This method handles submiting new contact information*/
         public ActionResult SubmitContact(Contact cont)
         {
             DataLayer dal = new DataLayer();
@@ -40,7 +43,7 @@ namespace Football.Controllers
                     ViewBag.message = "You have already submitted contact information";
                 }
                 else
-                {
+                {   //Adding new contact information
                     dal.contacts.Add(cont);
                     dal.SaveChanges();
                     ViewBag.message = "Contact information was submitted succesfully";
@@ -55,6 +58,7 @@ namespace Football.Controllers
             return View("Contact", cont);
         }
 
+        /*This function checks if user's email exists in contacts table*/
         public bool contactExists(string email)
         {
             DataLayer dal = new DataLayer();

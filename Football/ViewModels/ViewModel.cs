@@ -6,6 +6,8 @@ using Football.Models;
 
 namespace Football.ViewModels
 {
+
+    /*This class is a general view model*/
     public class ViewModel
     {
         public List<Player> players { get; set; }
