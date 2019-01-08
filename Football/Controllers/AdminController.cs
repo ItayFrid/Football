@@ -223,7 +223,10 @@ namespace Football.Controllers
                                     select x).ToList<User>();
             vm.users = objAdmins;
             vm.user = user;
-            return View("AdminRegister", vm);
+            objAdmins = (from x in dal.users
+                         where x.role.Contains("Admin")
+                         select x).ToList<User>();
+            return Json(objAdmins, JsonRequestBehavior.AllowGet);
         }
 
         private bool adminExists(string userName)
