@@ -1,25 +1,8 @@
 ﻿@model Football.ViewModels.ViewModel
-@using Football.Models;
 @{
     ViewBag.Title = "showStaff";
 }
 
 <h2>Staff</h2>
 <hr />
-<table class="table">
-    <tr>
-        <th>First name</th>
-        <th>Last name</th>
-        <th>Job</th>
-        <th>Age</th>
-    </tr>
-    @foreach (Staff staff in Model.staffs)
-    {
-        <tr>
-            <td>@staff.firstName</td>
-            <td>@staff.lastName</td>
-            <td>@staff.job</td>
-            <td>@staff.age</td>
-        </tr>
-    }
-</table>
+@Html.Partial("StaffDisplay", Model)
